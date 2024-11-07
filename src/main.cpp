@@ -14,8 +14,8 @@ int main(int argc, char** argv) {
         return -1;
     }
 
-    // Use unique_ptr instead of raw pointer
-    std::unique_ptr<cv::Mat> grayImagePtr = std::make_unique<cv::Mat>();
+    // Use auto to deduce the type
+    auto grayImagePtr = std::make_unique<cv::Mat>();
     cv::cvtColor(image, *grayImagePtr, cv::COLOR_BGR2GRAY);
 
     int width = grayImagePtr->cols;
@@ -31,6 +31,5 @@ int main(int argc, char** argv) {
 
     std::cout << "Image converted to grayscale and saved." << std::endl;
 
-    // No need for delete, unique_ptr will automatically free the memory
     return 0;
 }
