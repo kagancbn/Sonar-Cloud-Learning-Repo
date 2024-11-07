@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>  // Include for std::unique_ptr
 #include <opencv2/opencv.hpp>
 
 int main(int argc, char** argv) {
@@ -13,8 +14,8 @@ int main(int argc, char** argv) {
         return -1;
     }
 
-    cv::Mat* grayImagePtr = nullptr;  // Null pointer (potential issue)
-    grayImagePtr = new cv::Mat();
+    // Use unique_ptr instead of raw pointer
+    std::unique_ptr<cv::Mat> grayImagePtr = std::make_unique<cv::Mat>();
     cv::cvtColor(image, *grayImagePtr, cv::COLOR_BGR2GRAY);
 
     int width = grayImagePtr->cols;
@@ -30,6 +31,6 @@ int main(int argc, char** argv) {
 
     std::cout << "Image converted to grayscale and saved." << std::endl;
 
-    delete grayImagePtr;  // Clean up allocated memory
+    // No need for delete, unique_ptr will automatically free the memory
     return 0;
 }
