@@ -17,8 +17,6 @@ int main(int argc, char** argv) {
     grayImagePtr = new cv::Mat();
     cv::cvtColor(image, *grayImagePtr, cv::COLOR_BGR2GRAY);
 
-    int unusedVar = 42;  // Unused variable
-
     int width = grayImagePtr->cols;
     int height = grayImagePtr->rows;
     for (int i = 0; i < height; ++i) {
