@@ -1,6 +1,7 @@
 #include <iostream>
 #include <memory>  // Include for std::unique_ptr
 #include <opencv2/opencv.hpp>
+#include <cstdint>  // Include for fixed-width integer types
 
 int main(int argc, char** argv) {
     if (argc != 2) {
@@ -14,15 +15,14 @@ int main(int argc, char** argv) {
         return -1;
     }
 
-    // Use auto to deduce the type
     auto grayImagePtr = std::make_unique<cv::Mat>();
     cv::cvtColor(image, *grayImagePtr, cv::COLOR_BGR2GRAY);
 
-    int width = grayImagePtr->cols;
-    int height = grayImagePtr->rows;
-    for (int i = 0; i < height; ++i) {
-        for (int j = 0; j < width; ++j) {
-            grayImagePtr->at<uchar>(i, j) = grayImagePtr->at<uchar>(i, j) * 2; // Magic number (2)
+    int32_t width = grayImagePtr->cols;
+    int32_t height = grayImagePtr->rows;
+    for (int32_t i = 0; i < height; ++i) {
+        for (int32_t j = 0; j < width; ++j) {
+            grayImagePtr->at<uchar>(i, j) = grayImagePtr->at<uchar>(i, j) * 2;  // Magic number (2)
         }
     }
 
