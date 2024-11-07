@@ -1,7 +1,7 @@
 #include <iostream>
-#include <memory>  // Include for std::unique_ptr
+#include <memory>
 #include <opencv2/opencv.hpp>
-#include <cstdint>  // Include for fixed-width integer types
+#include <cstdint>
 
 int main(int argc, char** argv) {
     if (argc != 2) {
@@ -26,10 +26,14 @@ int main(int argc, char** argv) {
         }
     }
 
-    // Saving the grayscale image
-    cv::imwrite("grayscale_image.jpg", *grayImagePtr);
+    // Attempt to save the grayscale image and check if it was successful
+    bool isSaved = cv::imwrite("grayscale_image.jpg", *grayImagePtr);
+    if (!isSaved) {
+        std::cerr << "Error: Failed to save the grayscale image!" << std::endl;
+        return -1;
+    }
 
-    std::cout << "Image converted to grayscale and saved." << std::endl;
+    std::cout << "Image converted to grayscale and saved successfully." << std::endl;
 
     return 0;
 }
